@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="/api-docs/swagger-ui.css">
+    <style>
+      #swagger-ui .topbar,
+      #swagger-ui .information-container,
+      #swagger-ui .scheme-container {
+          display: none !important;
+      }
+      #swagger-ui .swagger-ui > div > .wrapper {
+          padding: 0 !important;
+      }
+      .swagger-ui .opblock .opblock-summary-path {
+          min-width: 100px !important;
+      }
+    </style>
+    <title>API Reference - Semaphore UI</title>
+    <link rel="icon" href="/img/favicon.png?_=4093">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Swagger-powered Semaphore API documentation for developers.">
+    <meta property="og:title" content="API Reference">
+    <meta property="og:image:url" content="undefined?_=4093">
+    <meta property="og:image:secure_url" content="undefined?_=4093">
+    <meta property="og:image:type" content="image/jpg">
+    <meta property="og:image:width" content="1793">
+    <meta property="og:image:height" content="1078">
+    <meta property="og:site_name" content="Semaphore UI for Ansible, Terraform and Bash">
+    <meta property="og:description" content="Swagger-powered Semaphore API documentation for developers.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="Swagger-powered Semaphore API documentation for developers.">
+    <meta name="twitter:title" content="API Reference">
+    <meta name="twitter:image" content="undefined?_=4093">
+    <meta name="twitter:site" content="@semaphoreui">
+    <meta name="twitter:creator" content="@semaphoreui">
+    <link rel="canonical" href="https://semaphoreui.com/api-docs">
+    <link rel="stylesheet" href="/css/style.css?_=4093">
+    <script src="/js/components.js?_=4093"></script>
+    <script>
+      (function () {
+          const OFFERS = [
+              "premium",
+          ];
+      
+          if (sessionStorage.getItem("notPromotableOffer")) {
+              return;
+          }
+      
+          const promotableOffer = OFFERS[Math.floor(Math.random() * OFFERS.length)];
+      
+          sessionStorage.setItem("notPromotableOffer", Array.from(new Set(OFFERS)).filter(offer => offer !== promotableOffer).join(","));
+      }());
+      
+      
+    </script>
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-MH9HDMFZ');
+      
+    </script>
+    <script type="text/javascript" src="/js/klaro-translations.js?lang=en&amp;_=4093"></script>
+    <script type="text/javascript" src="/js/klaro-config.js?lang=en&amp;_=4093"></script>
+    <script type="text/javascript" src="/js/klaro.js?_=4093"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      
+    </script>
+  </head>
+  <body>
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MH9HDMFZ" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <nav class="navbar is-fixed-top Navbar  is-primary" id="navbar">
+      <div class="container">
+        <div class="navbar-brand"><a class="navbar-item" href="/">
+            <div class="SiteHeaderLogo"><img src="/img/semaphore-dark.png"/></div></a><a class="navbar-burger burger" role="button" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></a></div>
+        <div class="Navbar__menu navbar-menu" id="navbarBasicExample">
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <script>
+                (function () {
+                    document.addEventListener('click', () => {
+                        //- document.getElementById('header_try_cloud_menu').classList.remove('is-active');
+                    });
+                }());
+                
+              </script>
+            </div>
+            <div class="navbar-item has-dropdown is-hoverable"><a class="navbar-link">Products</a>
+              <div class="navbar-dropdown">
+                <div style="display: flex; flex-direction: row; gap: 20px;">
+                  <div><a class="navbar-item navbar-item--with-description" href="/pro">
+                      <div>Semaphore UI PRO</div>
+                      <div class="navbar-item__description">Large-Scale Projects License</div></a><a class="navbar-item navbar-item--with-description" href="/enterprise">
+                      <div>Semaphore UI for Enterprise</div>
+                      <div class="navbar-item__description">Security, Premium Support &amp; HA</div></a><a class="navbar-item navbar-item--with-description" href="https://github.com/semaphoreui/semaphore">
+                      <div>Semaphore UI Community</div>
+                      <div class="navbar-item__description">Install for free</div></a>
+                    <hr class="navbar-divider"/><a class="navbar-item" href="/features">Features</a><a class="navbar-item" href="/use-cases">Use cases</a>
+                  </div>
+                  <div><a class="navbar-item navbar-item--with-icon--normal" style="background-image: url(/img/awx.svg);" href="/vs/awx">Semaphore vs <b class="pl-1">AWX</b></a><a class="navbar-item navbar-item--with-icon--normal" style="background-image: url(/img/rundeck.svg);" href="/vs/rundeck">Semaphore vs <b class="pl-1">Rundeck</b></a><a class="navbar-item navbar-item--with-icon--normal" style="background-image: url(/img/gitlab.svg);" href="/vs/gitlab">Semaphore vs <b class="pl-1">GitLab</b></a><a class="navbar-item navbar-item--with-icon--normal" style="background-image: url(/img/jenkins.svg);" href="/vs/jenkins">Semaphore vs <b class="pl-1">Jenkins</b></a><a class="navbar-item navbar-item--with-icon--normal" style="background-image: url(/img/spacelift.webp);" href="/vs/spacelift">Semaphore vs <b class="pl-1">Spacelift</b></a><a class="navbar-item navbar-item--with-icon--normal" style="background-image: url(/img/gaia.webp);" href="/vs/gaia">Semaphore vs <b class="pl-1">Gaia</b></a><a class="navbar-item navbar-item--with-icon--normal" style="background-image: url(/img/tower.svg);" href="/vs/tower">Semaphore vs <b class="pl-1">Tower (AAP)</b></a></div>
+                </div>
+              </div>
+            </div><a class="navbar-item" href="/pricing/"><span>Pricing</span></a>
+            <div class="navbar-item has-dropdown is-hoverable"><a class="navbar-link">Resources</a>
+              <div class="navbar-dropdown"><a class="navbar-item" href="/install">Installation</a><a class="navbar-item" href="https://semaphoreui.com/docs">Docs</a><a class="navbar-item" href="/roadmap">Roadmap</a><a class="navbar-item" href="/case-studies">Case studies</a><a class="navbar-item" href="/api-docs/">API References (Swagger)</a><a class="navbar-item" href="/blog/">Blog</a><a class="navbar-item" href="/releases/">What's new?</a></div>
+            </div>
+            <div class="navbar-item has-dropdown is-hoverable LangSelector">
+              <div class="navbar-link is-hidden-touch"><img src="https://galaxy.semaphoreui.com/images/sq_flags/en.svg" alt="Flag en"/></div>
+              <div class="navbar-dropdown"><a class="navbar-item" href="/api-docs"><img src="https://galaxy.semaphoreui.com/images/sq_flags/en.svg" alt="Flag en"/></a><a class="navbar-item" href="/fr/api-docs"><img src="https://galaxy.semaphoreui.com/images/sq_flags/fr.svg" alt="Flag fr"/></a><a class="navbar-item" href="/es/api-docs"><img src="https://galaxy.semaphoreui.com/images/sq_flags/es.svg" alt="Flag es"/></a><a class="navbar-item" href="/de/api-docs"><img src="https://galaxy.semaphoreui.com/images/sq_flags/de.svg" alt="Flag de"/></a><a class="navbar-item" href="/it/api-docs"><img src="https://galaxy.semaphoreui.com/images/sq_flags/it.svg" alt="Flag it"/></a><a class="navbar-item" href="/ja/api-docs"><img src="https://galaxy.semaphoreui.com/images/sq_flags/jp.svg" alt="Flag ja"/></a><a class="navbar-item" href="/ko/api-docs"><img src="https://galaxy.semaphoreui.com/images/sq_flags/kr.svg" alt="Flag ko"/></a><a class="navbar-item" href="/pt/api-docs"><img src="https://galaxy.semaphoreui.com/images/sq_flags/pt.svg" alt="Flag pt"/></a><a class="navbar-item" href="/zh/api-docs"><img src="https://galaxy.semaphoreui.com/images/sq_flags/zh.svg" alt="Flag zh"/></a></div>
+            </div><a class="navbar-item" href="https://portal.semaphoreui.com"><span>Sign in</span></a><a class="navbar-item" href="https://github.com/semaphoreui/semaphore">
+              <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z">                       span.ml-1 7,633 stars</path>
+              </svg><span class="ml-1">13k</span></a>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+            sessionStorage.getItem("notPromotableOffer").split(",").forEach((offer) => {
+                document.querySelectorAll(`[data-offer="${offer}"]`).forEach((elem) => elem.remove());
+            });
+        
+            let lastKnownScrollPosition = 0;
+            let ticking = false;
+        
+            document.addEventListener("scroll", () => {
+                lastKnownScrollPosition = window.scrollY;
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        if (lastKnownScrollPosition > 50) {
+                            document.getElementById("navbar").classList.add("Navbar--scrolled");
+                        } else {
+                            document.getElementById("navbar").classList.remove("Navbar--scrolled");
+                        }
+                        ticking = false;
+                    });
+        
+                    ticking = true;
+                }
+            });
+        }());
+        
+      </script>
+      <script>
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "v4ak0y37qo");
+      </script>
+    </nav>
+    <div class="container Page">
+      <header class="Page__header mb-0">
+        <h1 class="title is-size-1"><span>API Reference</span><span class="ml-2 tag is-primary is-medium" style="transform: translateY(-3px)">LATEST</span></h1>
+        <h2 class="subtitle">Swagger-powered Semaphore API documentation for developers.</h2>
+      </header>
+      <div id="swagger-ui"></div>
+    </div>
+    <script src="/api-docs/swagger-ui-bundle.js" charset="UTF-8"></script>
+    <script src="/api-docs/swagger-ui-standalone-preset.js" charset="UTF-8"></script>
+    <script>
+      window.onload = function() {
+          // Begin Swagger UI call region
+          const ui = SwaggerUIBundle({
+              url: "https://raw.githubusercontent.com/semaphoreui/semaphore/refs/heads/develop/api-docs.yml",
+              dom_id: '#swagger-ui',
+              deepLinking: true,
+              host: 'https://portal.semaphoreui.com',
+              presets: [
+                  SwaggerUIBundle.presets.apis,
+                  SwaggerUIStandalonePreset
+              ],
+              plugins: [
+                  SwaggerUIBundle.plugins.DownloadUrl
+              ],
+              layout: "StandaloneLayout"
+          });
+          // End Swagger UI call region
+      
+          window.ui = ui;
+      };
+      
+    </script>
+    <footer class="footer pb-6 mt-6">
+      <div class="container">
+        <div class="columns">
+          <div class="column">
+            <div><a href="/legal/terms-of-service">Terms of Service</a><span style="white-space: nowrap;">&nbsp;&nbsp;|&nbsp;&nbsp;</span><a href="/legal/subscription-agreement">Subscription Agreement</a><span style="white-space: nowrap;">&nbsp;&nbsp;|&nbsp;&nbsp;</span><a href="/legal/refund-policy">Refund Policy</a><span style="white-space: nowrap;">&nbsp;&nbsp;|&nbsp;&nbsp;</span><a href="/privacy/policy">Privacy Policy</a><span style="white-space: nowrap;">&nbsp;&nbsp;|&nbsp;&nbsp;</span><a href="/privacy/cookies">Cookie Policy</a><span style="white-space: nowrap;">&nbsp;&nbsp;|&nbsp;&nbsp;</span><a href="/security/whitepaper">Security Whitepaper</a><span style="white-space: nowrap;">&nbsp;&nbsp;|&nbsp;&nbsp;</span><a href="/legal/support-offering">Support Offering</a></div>
+          </div>
+          <div class="column" style="text-align: right;"><a class="mr-2" href="https://discord.gg/5R6k7hNGcH"><img class="Navbar__socialIcon" src="/img/discord.webp" alt="Discord"/></a><a class="mr-2" href="https://twitter.com/semaphoreui"><img class="Navbar__socialIcon" src="/img/twitter.jpg" alt="Twitter"/></a><a class="mr-2" href="https://www.youtube.com/@semaphoreui"><img class="Navbar__socialIcon" src="/img/youtube.jpg" alt="YouTube"/></a><a class="mr-2" href="https://dev.to/semaphoreui"><img class="Navbar__socialIcon" src="/img/devto.png" alt="Dev.to"/></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="https://cdn.amplitude.com/script/94a727ab6b93364a037595c2e663a57a.js"></script>
+    <script>
+      window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));window.amplitude.init('94a727ab6b93364a037595c2e663a57a', {"fetchRemoteConfig":true,"autocapture":{"attribution":true,"fileDownloads":true,"formInteractions":true,"pageViews":true,"sessions":true,"elementInteractions":true,"networkTracking":true,"webVitals":true,"frustrationInteractions":{"thrashedCursor":true,"errorClicks":true,"deadClicks":true,"rageClicks":true}}});
+      
+      
+    </script>
+    <footer>
+    </footer>
+    <script src="/js/main.js?_=4093"></script>
+  </body>
+</html>

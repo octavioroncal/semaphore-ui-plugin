@@ -1,0 +1,25 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+	<id>com.oroncal.semaphoreui</id>
+	<name>Semaphore UI</name>
+	<vendor url="https://semaphoreui.com">Oroncal</vendor>
+
+	<description><![CDATA[
+        IntelliJ plugin for operating Semaphore UI from the IDE.<br>
+        Includes a bottom tool window for projects, templates, tasks, and task output.<br>
+        Stores connection settings and credentials in the IDE settings.
+        ]]></description>
+
+	<depends>com.intellij.modules.platform</depends>
+
+	<extensions defaultExtensionNs="com.intellij">
+		<toolWindow id="Semaphore UI"
+					anchor="bottom"
+					canCloseContents="false"
+					factoryClass="com.oroncal.semaphoreui.toolwindow.SemaphoreToolWindowFactory"/>
+		<applicationConfigurable id="com.oroncal.semaphoreui.settings"
+								 parentId="tools"
+								 displayName="Semaphore UI"
+								 instance="com.oroncal.semaphoreui.settings.SemaphoreSettingsConfigurable"/>
+	</extensions>
+</idea-plugin>
