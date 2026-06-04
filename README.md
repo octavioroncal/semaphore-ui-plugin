@@ -29,7 +29,7 @@ The plugin prioritizes `API Token` with the `Authorization: Bearer <token>` head
 
 - `No Proxy`
 - `HTTP`
-- `SOCKS5` without interactive authentication prompts
+- `SOCKS5`
 
 ## Development
 
