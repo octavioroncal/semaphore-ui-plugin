@@ -2,7 +2,7 @@
 <idea-plugin>
 	<id>com.oroncal.semaphoreui</id>
 	<name>Semaphore UI</name>
-	<vendor url="https://semaphoreui.com">Oroncal</vendor>
+	<vendor>Oroncal</vendor>
 
 	<description><![CDATA[
         IntelliJ plugin for operating Semaphore UI from the IDE.<br>
@@ -11,6 +11,7 @@
         ]]></description>
 
 	<depends>com.intellij.modules.platform</depends>
+	<depends>com.intellij.modules.xml</depends>
 
 	<extensions defaultExtensionNs="com.intellij">
 		<toolWindow id="Semaphore UI"
@@ -22,4 +23,13 @@
 								 displayName="Semaphore UI"
 								 instance="com.oroncal.semaphoreui.settings.SemaphoreSettingsConfigurable"/>
 	</extensions>
+
+	<actions>
+		<action id="com.oroncal.semaphoreui.release.ReleaseArtifactAction"
+				class="com.oroncal.semaphoreui.release.ReleaseArtifactAction"
+				text="Release Artifact"
+				description="Create a release commit and tag from the selected Maven module">
+			<add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+		</action>
+	</actions>
 </idea-plugin>
