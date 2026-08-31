@@ -8,7 +8,7 @@ data class SemanticVersion(
 ) {
     fun propose(kind: ReleaseKind): SemanticVersion =
         when (kind) {
-            ReleaseKind.FIX -> if (snapshot) copy(snapshot = false) else copy(patch = patch + 1, snapshot = false)
+            ReleaseKind.FIX -> copy(patch = patch + 1, snapshot = false)
             ReleaseKind.MINOR -> copy(minor = minor + 1, patch = 0, snapshot = false)
             ReleaseKind.MAJOR -> copy(major = major + 1, minor = 0, patch = 0, snapshot = false)
         }

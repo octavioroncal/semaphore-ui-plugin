@@ -28,7 +28,7 @@ class SemanticVersionTest {
     fun proposesReleaseNumbersFromSnapshot() {
         val version = SemanticVersion.parse("1.2.3-SNAPSHOT")!!
 
-        assertEquals("1.2.3", version.propose(ReleaseKind.FIX).toString())
+        assertEquals("1.2.4", version.propose(ReleaseKind.FIX).toString())
         assertEquals("1.3.0", version.propose(ReleaseKind.MINOR).toString())
         assertEquals("2.0.0", version.propose(ReleaseKind.MAJOR).toString())
     }
@@ -40,5 +40,23 @@ class SemanticVersionTest {
         assertEquals("1.2.4", version.propose(ReleaseKind.FIX).toString())
         assertEquals("1.3.0", version.propose(ReleaseKind.MINOR).toString())
         assertEquals("2.0.0", version.propose(ReleaseKind.MAJOR).toString())
+    }
+
+    @Test
+    fun proposesReleaseNumbersFromZeroVersion() {
+        val version = SemanticVersion.parse("0.0.1")!!
+
+        assertEquals("0.0.2", version.propose(ReleaseKind.FIX).toString())
+        assertEquals("0.1.0", version.propose(ReleaseKind.MINOR).toString())
+        assertEquals("1.0.0", version.propose(ReleaseKind.MAJOR).toString())
+    }
+
+    @Test
+    fun proposesReleaseNumbersFromZeroSnapshotVersion() {
+        val version = SemanticVersion.parse("0.0.1-SNAPSHOT")!!
+
+        assertEquals("0.0.2", version.propose(ReleaseKind.FIX).toString())
+        assertEquals("0.1.0", version.propose(ReleaseKind.MINOR).toString())
+        assertEquals("1.0.0", version.propose(ReleaseKind.MAJOR).toString())
     }
 }
