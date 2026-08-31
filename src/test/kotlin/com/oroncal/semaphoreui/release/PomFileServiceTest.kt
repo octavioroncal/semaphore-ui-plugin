@@ -13,6 +13,7 @@ class PomFileServiceTest : BasePlatformTestCase() {
             <project xmlns="http://maven.apache.org/POM/4.0.0">
               <modelVersion>4.0.0</modelVersion>
               <artifactId>module-a-artifact</artifactId>
+              <name>Module A</name>
               <version>1.2.3-SNAPSHOT</version>
             </project>
             """.trimIndent(),
@@ -24,8 +25,63 @@ class PomFileServiceTest : BasePlatformTestCase() {
         )
 
         assertEquals("module-a-artifact", target.artifactId)
+        assertEquals("Module A", target.displayName)
+        assertEquals("Module-A", target.tagModuleName)
         assertEquals("1.2.3-SNAPSHOT", target.currentVersion)
         assertEquals(SemanticVersion(1, 2, 3, true), target.parsedVersion)
+    }
+
+    fun testFallsBackToConcreteModuleDirectoryForTagName() {
+        val pomFile = myFixture.addFileToProject(
+            "child-module/pom.xml",
+            """
+            <project xmlns="http://maven.apache.org/POM/4.0.0">
+              <modelVersion>4.0.0</modelVersion>
+              <parent>
+                <groupId>demo</groupId>
+                <artifactId>parent-project</artifactId>
+                <version>1.0.0</version>
+              </parent>
+              <artifactId>child-module-artifact</artifactId>
+              <version>1.2.3</version>
+            </project>
+            """.trimIndent(),
+        ).virtualFile
+
+        val target = PomFileService.loadReleaseTarget(
+            project,
+            ReleaseContext("parent-project", pomFile.parent, pomFile),
+        )
+
+        assertEquals("child-module", target.displayName)
+        assertEquals("child-module", target.tagModuleName)
+    }
+
+    fun testUsesModulePomNameInsteadOfParentProjectNameForTagName() {
+        val pomFile = myFixture.addFileToProject(
+            "child-module/pom.xml",
+            """
+            <project xmlns="http://maven.apache.org/POM/4.0.0">
+              <modelVersion>4.0.0</modelVersion>
+              <parent>
+                <groupId>demo</groupId>
+                <artifactId>parent-project</artifactId>
+                <version>1.0.0</version>
+              </parent>
+              <artifactId>child-module-artifact</artifactId>
+              <name>Child Module UI</name>
+              <version>1.2.3</version>
+            </project>
+            """.trimIndent(),
+        ).virtualFile
+
+        val target = PomFileService.loadReleaseTarget(
+            project,
+            ReleaseContext("parent-project", pomFile.parent, pomFile),
+        )
+
+        assertEquals("Child Module UI", target.displayName)
+        assertEquals("Child-Module-UI", target.tagModuleName)
     }
 
     fun testRejectsPomWithoutDirectProjectVersion() {

@@ -29,6 +29,8 @@ object PomFileService {
         return ReleaseTarget(
             context = context,
             artifactId = parsedPom.artifactId,
+            displayName = parsedPom.name ?: context.moduleDir.name,
+            tagModuleName = resolveTagModuleName(parsedPom.name, context.moduleDir.name, context.moduleName),
             currentVersion = currentVersion,
             parsedVersion = parsedVersion,
         )
@@ -66,6 +68,32 @@ object PomFileService {
 
     private fun readPomText(pomFile: VirtualFile): String = VfsUtil.loadText(pomFile)
 
+    private fun resolveTagModuleName(vararg candidates: String?): String {
+        candidates.forEach { candidate ->
+            val sanitized = sanitizeTagComponent(candidate)
+            if (sanitized != null) {
+                return sanitized
+            }
+        }
+        throw ReleaseException("Could not determine a valid module name for the Git tag.")
+    }
+
+    private fun sanitizeTagComponent(candidate: String?): String? {
+        val trimmed = candidate?.trim().orEmpty()
+        if (trimmed.isEmpty()) {
+            return null
+        }
+
+        val sanitized = trimmed
+            .replace(Regex("""\s+"""), "-")
+            .replace(Regex("""[^A-Za-z0-9._-]"""), "-")
+            .replace(Regex("""-+"""), "-")
+            .trim('.', '-', '/')
+            .removeSuffix(".lock")
+
+        return sanitized.takeIf { it.isNotEmpty() }
+    }
+
     private fun parsePom(xmlText: String, fileName: String): ParsedPom {
         val factory = DocumentBuilderFactory.newInstance().apply {
             isNamespaceAware = true
@@ -93,6 +121,7 @@ object PomFileService {
         }
 
         var artifactId: String? = null
+        var name: String? = null
         var version: String? = null
         val childNodes = rootElement.childNodes
         for (index in 0 until childNodes.length) {
@@ -100,6 +129,9 @@ object PomFileService {
             when (child.localNameOrTagName()) {
                 "artifactId" -> if (artifactId == null) {
                     artifactId = child.textContent.trim().ifBlank { null }
+                }
+                "name" -> if (name == null) {
+                    name = child.textContent.trim().ifBlank { null }
                 }
                 "version" -> if (version == null) {
                     version = child.textContent.trim()
@@ -109,6 +141,7 @@ object PomFileService {
 
         return ParsedPom(
             artifactId = artifactId,
+            name = name,
             version = version,
         )
     }
@@ -172,6 +205,7 @@ object PomFileService {
 
     private data class ParsedPom(
         val artifactId: String?,
+        val name: String?,
         val version: String?,
     )
 

@@ -11,6 +11,8 @@ data class ReleaseContext(
 data class ReleaseTarget(
     val context: ReleaseContext,
     val artifactId: String?,
+    val displayName: String,
+    val tagModuleName: String,
     val currentVersion: String,
     val parsedVersion: SemanticVersion,
 )

@@ -42,7 +42,7 @@ class ReleaseArtifactAction : AnAction(
         }
 
         val releasePlan = chooseReleasePlan(project, target) ?: return
-        ProgressManager.getInstance().run(object : Task.Backgroundable(project, "Create release for ${context.moduleName}", true) {
+        ProgressManager.getInstance().run(object : Task.Backgroundable(project, "Create release for ${target.displayName}", true) {
             override fun run(indicator: ProgressIndicator) {
                 indicator.text = "Validating Git repository"
                 val repoRoot = GitReleaseService.resolveRepositoryRoot(Path.of(context.moduleDir.path))
@@ -55,7 +55,7 @@ class ReleaseArtifactAction : AnAction(
                 PomFileService.updateVersion(project, context.pomFile, releasePlan.version)
 
                 val relativePomPath = GitReleaseService.relativePath(repoRoot, Path.of(context.pomFile.path))
-                val commitSubject = target.artifactId ?: context.moduleName
+                val commitSubject = target.artifactId ?: target.tagModuleName
 
                 indicator.text = "Creating Git commit and tag"
                 try {
@@ -87,7 +87,7 @@ class ReleaseArtifactAction : AnAction(
             override fun onSuccess() {
                 Messages.showInfoMessage(
                     project,
-                    "Release created and pushed for ${context.moduleName}.\nVersion: ${releasePlan.version}\nTag: ${releasePlan.tagName}",
+                    "Release created and pushed for ${target.displayName}.\nVersion: ${releasePlan.version}\nTag: ${releasePlan.tagName}",
                     "Release Artifact",
                 )
             }
@@ -112,7 +112,7 @@ class ReleaseArtifactAction : AnAction(
     }
 
     private fun chooseReleasePlan(project: com.intellij.openapi.project.Project, target: ReleaseTarget): ReleasePlan? {
-        val moduleName = target.context.moduleName
+        val moduleName = target.displayName
         val fixVersion = target.parsedVersion.propose(ReleaseKind.FIX).toString()
         val minorVersion = target.parsedVersion.propose(ReleaseKind.MINOR).toString()
         val majorVersion = target.parsedVersion.propose(ReleaseKind.MAJOR).toString()
@@ -132,9 +132,9 @@ class ReleaseArtifactAction : AnAction(
         )
 
         return when (choice) {
-            0 -> ReleasePlan(ReleaseKind.FIX, fixVersion, "$moduleName/$fixVersion")
-            1 -> ReleasePlan(ReleaseKind.MINOR, minorVersion, "$moduleName/$minorVersion")
-            2 -> ReleasePlan(ReleaseKind.MAJOR, majorVersion, "$moduleName/$majorVersion")
+            0 -> ReleasePlan(ReleaseKind.FIX, fixVersion, "${target.tagModuleName}/$fixVersion")
+            1 -> ReleasePlan(ReleaseKind.MINOR, minorVersion, "${target.tagModuleName}/$minorVersion")
+            2 -> ReleasePlan(ReleaseKind.MAJOR, majorVersion, "${target.tagModuleName}/$majorVersion")
             else -> null
         }
     }
